@@ -1,31 +1,36 @@
 package io.github.theriverelder.dataadapter;
 
+import java.util.Date;
+
+import static io.github.theriverelder.dataadapter.DataAdapterDefaults.*;
+import static io.github.theriverelder.dataadapter.util.Maps.entry;
+
 public class Test {
     public static void main(String[] args) {
         
     }
 
     DataAdapter writeAlarmData() {
-        long dailyTime_1 = Date().getTime();
+        long dailyTime_1 = new Date().getTime();
         int maxDelayMinutes_1 = 5;
 
-        long dailyTime_2 = Date().getTime();
+        long dailyTime_2 = new Date().getTime();
         int maxDelayMinutes_2 = 6;
 
         String bell = "toast,ringtone";
         boolean enabled = true;
 
-        return DataAdapterDefaults.adaptMap(
-            entry("bell", DataAdapterDefaults.adaptString(bell)),
-            entry("enabled", DataAdapterDefaults.adaptBoolean(enabled)),
-            entry("controllers", DataAdapterDefaults.adaptList(
-                DataAdapterDefaults.adaptMap(
-                    entry("dailyTime", DataAdapterDefaults.adaptLong(dailyTime_1)),
-                    entry("maxDelayMinutes", DataAdapterDefaults.adaptInt(maxDelayMinutes_1))
+        return adaptMap(
+            entry("bell", adaptString(bell)),
+            entry("enabled", adaptBoolean(enabled)),
+            entry("controllers", adaptList(
+                adaptMap(
+                    entry("dailyTime", adaptLong(dailyTime_1)),
+                    entry("maxDelayMinutes", adaptInt(maxDelayMinutes_1))
                 ),
-                DataAdapterDefaults.adaptMap(
-                    entry("dailyTime", DataAdapterDefaults.adaptLong(dailyTime_2)),
-                    entry("maxDelayMinutes", DataAdapterDefaults.adaptInt(maxDelayMinutes_2))
+                adaptMap(
+                    entry("dailyTime", adaptLong(dailyTime_2)),
+                    entry("maxDelayMinutes", adaptInt(maxDelayMinutes_2))
                 )
             ))
         );
@@ -41,7 +46,7 @@ public class Test {
 
         bell = data.asMap().get("bell").asString();
         enabled = data.asMap().get("enabled").asBoolean();
-        data.asMap().get("controllers").asList().map((DataAdapter c) -> {
+        data.asMap().get("controllers").asList().forEach((DataAdapter c) -> {
             c.asMap().get("dailyTime").toLong();
             c.asMap().get("maxDelayMinutes").toInt();
         });

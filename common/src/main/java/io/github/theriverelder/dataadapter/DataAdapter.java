@@ -1,5 +1,7 @@
 package io.github.theriverelder.dataadapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 public interface DataAdapter {
@@ -34,7 +36,7 @@ public interface DataAdapter {
         throw new IllegalStateException("Cannot convert to boolean");
     }
 
-    default String toString() {
+    default String toStr() {
         throw new IllegalStateException("Cannot convert to String");
     }
 
@@ -47,43 +49,93 @@ public interface DataAdapter {
     }
 
     default byte[] toByteArray() {
-        throw new IllegalStateException("Cannot convert to byte[]");
+        List<DataAdapter> list = this.asList();
+        byte[] result = new byte[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toByte();
+        }
+        return result;
     }
 
     default short[] toShortArray() {
-        throw new IllegalStateException("Cannot convert to short[]");
+        List<DataAdapter> list = this.asList();
+        short[] result = new short[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toShort();
+        }
+        return result;
     }
 
     default int[] toIntArray() {
-        throw new IllegalStateException("Cannot convert to int[]");
+        List<DataAdapter> list = this.asList();
+        int[] result = new int[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toInt();
+        }
+        return result;
     }
 
     default long[] toLongArray() {
-        throw new IllegalStateException("Cannot convert to long[]");
+        List<DataAdapter> list = this.asList();
+        long[] result = new long[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toLong();
+        }
+        return result;
     }
 
     default float[] toFloatArray() {
-        throw new IllegalStateException("Cannot convert to float[]");
+        List<DataAdapter> list = this.asList();
+        float[] result = new float[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toFloat();
+        }
+        return result;
     }
 
     default double[] toDoubleArray() {
-        throw new IllegalStateException("Cannot convert to double[]");
+        List<DataAdapter> list = this.asList();
+        double[] result = new double[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toDouble();
+        }
+        return result;
     }
 
     default boolean[] toBooleanArray() {
-        throw new IllegalStateException("Cannot convert to boolean[]");
+        List<DataAdapter> list = this.asList();
+        boolean[] result = new boolean[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toBoolean();
+        }
+        return result;
     }
 
     default String[] toStringArray() {
-        throw new IllegalStateException("Cannot convert to String[]");
+        List<DataAdapter> list = this.asList();
+        String[] result = new String[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toStr();
+        }
+        return result;
     }
 
     default Object[] toObjectArray() {
-        throw new IllegalStateException("Cannot convert to Object[]");
+        List<DataAdapter> list = this.asList();
+        Object[] result = new Object[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).toObject();
+        }
+        return result;
     }
 
     default <T> T[] toArray(@NotNull Class<T> clazz) {
-        throw new IllegalStateException("Cannot convert to " + clazz.getName() + "[]");
+        List<DataAdapter> list = this.asList();
+        Object[] result = new Object[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).to(clazz);
+        }
+        return (T[]) result;
     }
 
     //#endregion
